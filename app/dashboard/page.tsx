@@ -493,9 +493,11 @@ export default function Dashboard() {
       }
 
       const result = await response.json();
-      console.log("API response:", result.response);
+      // console.log("API response:", result.response);
       setContent(result.response);
+      setCurrentPrompt("");
       setIsGenerating(false);
+      
 
       toast.success(
         `${mode === "story" ? "Story" : "Dialogue"} generated successfully!`
@@ -738,7 +740,7 @@ export default function Dashboard() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-gray-50 dark:bg-gray-800/90 rounded-lg p-6 h-[calc(80vh-2rem)]  overflow-y-auto custom-scrollbar">
+                    <div className="bg-gray-50 dark:bg-gray-800/90 rounded-lg p-6 h-[calc(90vh-2rem)]  overflow-y-auto custom-scrollbar">
                       {isGenerating ? (
                         <div className="flex items-center justify-center h-full">
                           <div className="text-center">
