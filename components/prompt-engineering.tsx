@@ -54,44 +54,48 @@ export function PromptEngineering({ mode, originalPrompt, onEnhancedPrompt }: Pr
   };
 
   const enhancePrompt = () => {
-    let enhancedPrompt = originalPrompt;
-    
-    // Add tone instruction
-    enhancedPrompt += `\n\nTone: ${toneOptions[tone as keyof typeof toneOptions]}`;
-    
-    // Add length instruction
-    enhancedPrompt += `\nLength: ${lengthOptions[length as keyof typeof lengthOptions]}`;
-    
-    // Add style instruction
-    enhancedPrompt += `\nStyle: ${styleOptions[style as keyof typeof styleOptions]}`;
-    
-    // Add creativity instruction
-    const creativityLevel = creativity[0];
-    if (creativityLevel < 0.3) {
-      enhancedPrompt += `\nApproach: Keep it realistic and grounded`;
-    } else if (creativityLevel > 0.7) {
-      enhancedPrompt += `\nApproach: Be highly creative and imaginative`;
-    } else {
-      enhancedPrompt += `\nApproach: Balance creativity with believability`;
-    }
+  let enhancedPrompt = originalPrompt;
+  // console.log("Original Prompt:", originalPrompt);
+  
+  // Add tone instruction
+  enhancedPrompt += `\n\nTone: ${toneOptions[tone as keyof typeof toneOptions]}`;
+  
+  // Add length instruction
+  enhancedPrompt += `\nLength: ${lengthOptions[length as keyof typeof lengthOptions]}`;
+  
+  // Add style instruction
+  enhancedPrompt += `\nStyle: ${styleOptions[style as keyof typeof styleOptions]}`;
+  
+  // Add creativity instruction
+  const creativityLevel = creativity[0];
+  if (creativityLevel < 0.3) {
+    enhancedPrompt += `\nApproach: Keep it realistic and grounded`;
+  } else if (creativityLevel > 0.7) {
+    enhancedPrompt += `\nApproach: Be highly creative and imaginative`;
+  } else {
+    enhancedPrompt += `\nApproach: Balance creativity with believability`;
+  }
 
-    // Add mode-specific instructions
-    if (mode === 'story') {
-      enhancedPrompt += `\n\nPlease create a compelling story with well-developed characters, engaging plot, and vivid descriptions. Include dialogue where appropriate and ensure a satisfying narrative arc.`;
-    } else {
-      enhancedPrompt += `\n\nPlease create realistic dialogue that captures the characters' personalities and motivations. Include natural speech patterns, emotional subtext, and appropriate pacing.`;
-    }
+  // Add mode-specific instructions
+  if (mode === 'story') {
+    enhancedPrompt += `\n\nPlease create a compelling story with well-developed characters, engaging plot, and vivid descriptions. Include dialogue where appropriate and ensure a satisfying narrative arc.`;
+  } else {
+    enhancedPrompt += `\n\nPlease create realistic dialogue that captures the characters' personalities and motivations. Format each line so that the speaker's name is clearly shown first, followed by what they say. Example:\n\nAlice: How are you today?\nBob: I'm fine, thanks. What about you?\n\nMake sure the conversation flows naturally and highlights emotions and tone.`;
+  }
 
-    const settings = {
-      tone,
-      length,
-      creativity: creativity[0],
-      style,
-      mode
-    };
+  // console.log("Enhanced Prompt:", enhancedPrompt);
 
-    onEnhancedPrompt(enhancedPrompt, settings);
+  const settings = {
+    tone,
+    length,
+    creativity: creativity[0],
+    style,
+    mode
   };
+
+  onEnhancedPrompt(enhancedPrompt, settings);
+};
+
 
   return (
     <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20">
