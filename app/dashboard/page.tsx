@@ -495,7 +495,7 @@ export default function Dashboard() {
       const result = await response.json();
       // console.log("API response:", result.response);
       setContent(result.response);
-      setCurrentPrompt("");
+      // setCurrentPrompt("");
       setIsGenerating(false);
       
 
